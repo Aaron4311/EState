@@ -13,6 +13,6 @@ namespace Entity.Concrete
 		public bool Status { get; set; }
 		public int CityId { get; set; }
 		public virtual City City { get; set; }
-		public virtual List<District> Districts { get; set; }
+		public virtual List<Neighbourhood> Neighbourhoods { get; set; }
 	}
 }
