@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concrete;
@@ -19,6 +21,8 @@ namespace Business.Concrete
 		{
 			_districtDal = districtDal;
 		}
+
+		[ValidationAspect(typeof(DistrictValidator))]
 
 		public IResult Add(District district)
 		{
@@ -44,6 +48,7 @@ namespace Business.Concrete
 
 		}
 
+		[ValidationAspect(typeof(DistrictValidator))]
 		public IResult Update(District district)
 		{
 			_districtDal.Update(district);

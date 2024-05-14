@@ -1,4 +1,6 @@
 ﻿using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concrete;
@@ -19,6 +21,7 @@ namespace Business.Concrete
 			_situationDal = situationDal;
 		}
 
+		[ValidationAspect(typeof(SituationValidator))]
 		public IResult Add(Situation situation)
 		{
 			_situationDal.Add(situation);
@@ -43,6 +46,7 @@ namespace Business.Concrete
 
 		}
 
+		[ValidationAspect(typeof(SituationValidator))]
 		public IResult Update(Situation situation)
 		{
 			_situationDal.Update(situation);

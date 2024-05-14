@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concrete;
@@ -20,6 +22,7 @@ namespace Business.Concrete
 			_generalSettingsDal = generalSettingsDal;
 		}
 
+		[ValidationAspect(typeof(GeneralSettings))]
 		public IResult Add(GeneralSettings generalSettings)
 		{
 			_generalSettingsDal.Add(generalSettings);
@@ -44,6 +47,7 @@ namespace Business.Concrete
 
 		}
 
+		[ValidationAspect(typeof(GeneralSettings))]
 		public IResult Update(GeneralSettings generalSettings)
 		{
 			_generalSettingsDal.Update(generalSettings);

@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concrete;
@@ -20,6 +22,7 @@ namespace Business.Concrete
 			_typeDal = typeDal;
 		}
 
+		[ValidationAspect(typeof(TypeValidator))]
 		public IResult Add(Type type)
 		{
 			_typeDal.Add(type);
@@ -44,6 +47,7 @@ namespace Business.Concrete
 
 		}
 
+		[ValidationAspect(typeof(TypeValidator))]
 		public IResult Update(Type type)
 		{
 			_typeDal.Update(type);

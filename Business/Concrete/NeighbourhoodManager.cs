@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concrete;
@@ -20,6 +22,7 @@ namespace Business.Concrete
 			_neighbourhoodDal = neighbourhoodDal;
 		}
 
+		[ValidationAspect(typeof(NeighbourhoodValidator))]
 		public IResult Add(Neighbourhood neighbourhood)
 		{
 			_neighbourhoodDal.Add(neighbourhood);
@@ -44,6 +47,7 @@ namespace Business.Concrete
 
 		}
 
+		[ValidationAspect(typeof(NeighbourhoodValidator))]
 		public IResult Update(Neighbourhood neighbourhood)
 		{
 			_neighbourhoodDal.Update(neighbourhood);

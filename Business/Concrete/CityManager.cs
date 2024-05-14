@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concrete;
@@ -20,6 +22,7 @@ namespace Business.Concrete
 			_cityDal = cityDal;
 		}
 
+		[ValidationAspect(typeof(CityValidator))]
 		public IResult Add(City city)
 		{
 			_cityDal.Add(city);
@@ -44,6 +47,7 @@ namespace Business.Concrete
 
 		}
 
+		[ValidationAspect(typeof(CityValidator))]
 		public IResult Update(City city)
 		{
 			_cityDal.Update(city);

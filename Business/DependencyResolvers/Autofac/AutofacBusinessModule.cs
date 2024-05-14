@@ -1,8 +1,12 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
+using Castle.DynamicProxy;
+using Core.Utilities.Interceptors;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using System.Reflection;
 
 namespace Business.DependencyResolvers.Autofac
 {
@@ -37,8 +41,13 @@ namespace Business.DependencyResolvers.Autofac
 
 			builder.RegisterType<UserAdminManager>().As<IUserAdminService>().SingleInstance();
 			builder.RegisterType<EfUserAdminDal>().As<IUserAdminDal>().SingleInstance();
-			
 
+			var assembly = Assembly.GetExecutingAssembly();
+			builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+				.EnableInterfaceInterceptors(new ProxyGenerationOptions()
+				{
+					Selector = new AspectInterceptorSelector()
+				}).SingleInstance();
 
 		}
 

@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concrete;
@@ -20,6 +22,7 @@ namespace Business.Concrete
 			_imageDal = imageDal;
 		}
 
+		[ValidationAspect(typeof(ImagesValidator))]
 		public IResult Add(Image image)
 		{
 			_imageDal.Add(image);
@@ -44,6 +47,7 @@ namespace Business.Concrete
 
 		}
 
+		[ValidationAspect(typeof(ImagesValidator))]
 		public IResult Update(Image image)
 		{
 			_imageDal.Update(image);
