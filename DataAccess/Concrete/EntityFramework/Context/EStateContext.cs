@@ -11,6 +11,10 @@ namespace DataAccess.Concrete.EntityFramework.Context
 {
 	public class EStateContext : IdentityDbContext<UserAdmin>
 	{
+        public EStateContext()
+        {
+            
+        }
         public EStateContext(DbContextOptions options) : base(options)
         {
             

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Concrete
 {
-	public class GeneralSettings
+	public class GeneralSettings : IEntity
 	{
 		public int GeneralSettingsId { get; set; }
 		public string Email { get; set;}
