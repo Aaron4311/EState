@@ -8,6 +8,7 @@ using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,6 +45,12 @@ namespace Business.Concrete
 		public IDataResult<List<Neighbourhood>> GetAll()
 		{
 			return new SuccessDataResult<List<Neighbourhood>>(_neighbourhoodDal.GetAll(), Messages.neighbourhoodListed);
+
+		}
+
+		public IDataResult<List<Neighbourhood>> GetFilteredNeighbourhoods(Expression<Func<Neighbourhood, bool>> filter)
+		{
+			return new SuccessDataResult<List<Neighbourhood>>(_neighbourhoodDal.GetAll(filter), Messages.neighbourhoodListed);
 
 		}
 

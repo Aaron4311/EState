@@ -38,6 +38,7 @@ namespace Entity.Concrete
 		public int NeighbourhoodId { get; set; }
 		public int SituationId { get; set; }
 		public int TypeId { get; set; }
+		public string UserAdminId { get; set; }
 		public bool Status { get; set; }
 		public IEnumerable<IFormFile> Image { get; set; }
 

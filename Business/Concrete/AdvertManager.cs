@@ -8,6 +8,7 @@ using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,10 +21,12 @@ namespace Business.Concrete
 		{
 			_advertDal = advertDal;
 		}
-		
+
 		[ValidationAspect(typeof(AdvertValidator))]
 		public IResult Add(Advert advert)
 		{
+			advert.Status = true;
+			advert.AdvertDate = DateTime.Now;
 			_advertDal.Add(advert);
 			return new SuccessResult(Messages.advertAdded);
 		}
@@ -31,8 +34,17 @@ namespace Business.Concrete
 		public IResult Delete(int id)
 		{
 			var deleted = _advertDal.Get(x => x.AdvertId == id);
+			deleted.Status = false;
 			_advertDal.Delete(deleted);
 			return new SuccessResult(Messages.advertDeleted);
+		}
+
+		public IResult FullDelete(int id)
+		{
+			var advert = _advertDal.Get(x => x.AdvertId == id);
+			_advertDal.Delete(advert);
+			return new SuccessResult(Messages.advertDeleted);
+
 		}
 
 		public IDataResult<Advert> Get(int id)
@@ -44,6 +56,21 @@ namespace Business.Concrete
 		{
 			return new SuccessDataResult<List<Advert>>(_advertDal.GetAll(), Messages.advertListed);
 
+		}
+
+
+		public IDataResult<List<Advert>> GetFilteredAdverts(Expression<Func<Advert, bool>> filter)
+		{
+			return new SuccessDataResult<List<Advert>>(_advertDal.GetAll(filter), Messages.advertListed);
+
+		}
+
+		public IResult RestoreDeleted(int id)
+		{
+			var deleted = _advertDal.Get(x => x.AdvertId == id);
+			deleted.Status = true;
+			_advertDal.Update(deleted);
+			return new SuccessResult(Messages.advertRestored);
 		}
 
 		[ValidationAspect(typeof(AdvertValidator))]

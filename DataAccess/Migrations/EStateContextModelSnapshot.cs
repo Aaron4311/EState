@@ -110,6 +110,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserAdminId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("AdvertId");
@@ -236,6 +237,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("NeighbourhoodName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("NeighbourhoodId");
 
@@ -507,7 +511,9 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Entity.Concrete.UserAdmin", "UserAdmin")
                         .WithMany("Adverts")
-                        .HasForeignKey("UserAdminId");
+                        .HasForeignKey("UserAdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Neighbourhood");
 

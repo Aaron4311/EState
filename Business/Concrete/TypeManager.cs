@@ -8,6 +8,7 @@ using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Type = Entity.Concrete.Type;
@@ -44,6 +45,12 @@ namespace Business.Concrete
 		public IDataResult<List<Type>> GetAll()
 		{
 			return new SuccessDataResult<List<Type>>(_typeDal.GetAll(), Messages.typeListed);
+
+		}
+
+		public IDataResult<List<Type>> GetFilteredTypes(Expression<Func<Type, bool>> filter)
+		{
+			return new SuccessDataResult<List<Type>>(_typeDal.GetAll(filter), Messages.typeListed);
 
 		}
 

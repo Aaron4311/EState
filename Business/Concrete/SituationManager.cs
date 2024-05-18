@@ -1,4 +1,5 @@
-﻿using Business.Constants;
+﻿using Business.Abstract;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Validation;
 using Core.Utilities.Results;
@@ -7,12 +8,13 @@ using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-	public class SituationManager
+	public class SituationManager : ISituationService
 	{
 		private ISituationDal _situationDal;
 
@@ -43,6 +45,12 @@ namespace Business.Concrete
 		public IDataResult<List<Situation>> GetAll()
 		{
 			return new SuccessDataResult<List<Situation>>(_situationDal.GetAll(), Messages.situationListed);
+
+		}
+
+		public IDataResult<List<Situation>> GetAllFilteredSituations(Expression<Func<Situation, bool>> filter)
+		{
+			return new SuccessDataResult<List<Situation>>(_situationDal.GetAll(filter), Messages.situationListed);
 
 		}
 

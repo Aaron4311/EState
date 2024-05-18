@@ -8,6 +8,7 @@ using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,6 +45,12 @@ namespace Business.Concrete
 		public IDataResult<List<Image>> GetAll()
 		{
 			return new SuccessDataResult<List<Image>>(_imageDal.GetAll(), Messages.imageListed);
+
+		}
+
+		public IDataResult<List<Image>> GetFilteredImages(Expression<Func<Image, bool>> filter)
+		{
+			return new SuccessDataResult<List<Image>>(_imageDal.GetAll(filter), Messages.imageListed);
 
 		}
 

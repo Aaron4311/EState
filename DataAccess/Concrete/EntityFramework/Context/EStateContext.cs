@@ -11,11 +11,11 @@ namespace DataAccess.Concrete.EntityFramework.Context
 {
 	public class EStateContext : IdentityDbContext<UserAdmin>
 	{
-        public EStateContext()
+        public EStateContext() : base()
         {
             
         }
-        public EStateContext(DbContextOptions options) : base(options)
+        public EStateContext(DbContextOptions<EStateContext> options) : base(options)
         {
             
         }
@@ -42,7 +42,10 @@ namespace DataAccess.Concrete.EntityFramework.Context
 			base.OnModelCreating(modelBuilder);
 
 		}
-
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EStateDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+		}
 
 	}
 }

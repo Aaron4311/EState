@@ -7,6 +7,7 @@ using Core.Utilities.Interceptors;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using System.Reflection;
+using Module = Autofac.Module;
 
 namespace Business.DependencyResolvers.Autofac
 {

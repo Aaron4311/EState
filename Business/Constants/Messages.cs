@@ -44,5 +44,6 @@ namespace Business.Constants
 		internal static string userAdminDeleted;
 		internal static string userAdminListed;
 		internal static string userAdminUpdated;
+		internal static string advertRestored;
 	}
 }

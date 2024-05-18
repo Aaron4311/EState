@@ -1,0 +1,90 @@
+﻿@model List<Advert>
+@{
+    ViewData["Title"] = "DeleteList";
+}
+
+@if (Model.Count == 0)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-success">
+                    There is no deleted advert
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+<table class="table table-bordered table table-striped">
+    <tr>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Number of Rooms</th>
+        <th>Number of Bathrooms</th>
+        <th>Area</th>
+        <th>Floor</th>
+        <th>Address</th>
+        <th>Advert Images</th>
+        <th>Restore</th>
+        <th>Delete for good</th>
+    </tr>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+        <td>@item.Description</td>
+        <td>@item.Price</td>
+        <td>@item.NumberOfRooms</td>
+        <td>@item.NumberOfBathrooms</td>
+        <td>@item.Area</td>
+        <td>@item.Floor</td>
+        <td>@item.Address</td>
+        <td><a class="btn btn-success" asp-action="AdvertImages" asp-route-id="@item.AdvertId">Advert Images </a></td>
+        <td><a class="btn btn-success" asp-action="RestoreDeleted" asp-route-id="@item.AdvertId"> Restore </a></td>
+        <td><a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.AdvertId"> Delete </a></td>
+
+    }
+        </tbody>
+    </table>
+
+    }
+<br />
+<a class="btn btn-primary" asp-action="Create">Add</a>
+
+<script>
+const { Toast } = require("bootstrap");
+
+    $("#table").on("click", "#delete", function () {
+        var id = $(this).val();
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/Admin/Advert/FullDeleted/" + id,
+
+                        success: function () {
+                            toastr.error("Advert is successfuly deleted")
+
+                        }
+                    });
+                    $(this).parent("td").parent("tr").remove();
+
+
+
+                }
+            });
+
+
+
+    });
+</script>
+
